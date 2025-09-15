@@ -1,0 +1,24 @@
+import requests
+
+from newsdata_client.newsdata_auth import NewsDataAuth
+from newsdata_client.newsdata_exception import NewsDataException
+
+
+class NewsDataClient:
+    def __init__(self, api_key):
+        self.base_api_url = "https://newsdata.io/api/1/"
+        self.latest_endpoint = f"{self.base_api_url}latest"
+
+        self.auth = NewsDataAuth(api_key)
+        self.request_method = requests
+
+    def latest(self):
+        response = self.request_method.get(self.latest_endpoint, auth=self.auth)
+
+        if response.status_code != requests.codes.ok:
+            if response.headers.get("content-type") == "application/json":
+                raise NewsDataException(response.json())
+            else:
+                raise NewsDataException(str(response.content))
+
+        return response.json()
