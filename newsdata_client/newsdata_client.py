@@ -8,12 +8,24 @@ class NewsDataClient:
     def __init__(self, api_key):
         self.base_api_url = "https://newsdata.io/api/1/"
         self.latest_endpoint = f"{self.base_api_url}latest"
+        self.crypto_endpoint = f"{self.base_api_url}crypto"
 
         self.auth = NewsDataAuth(api_key)
         self.request_method = requests
 
     def latest(self):
         response = self.request_method.get(self.latest_endpoint, auth=self.auth)
+
+        if response.status_code != requests.codes.ok:
+            if response.headers.get("content-type") == "application/json":
+                raise NewsDataException(response.json())
+            else:
+                raise NewsDataException(str(response.content))
+
+        return response.json()
+
+    def crypto(self):
+        response = self.request_method.get(self.crypto_endpoint, auth=self.auth)
 
         if response.status_code != requests.codes.ok:
             if response.headers.get("content-type") == "application/json":
