@@ -9,6 +9,7 @@ class NewsDataClient:
         self.base_api_url = "https://newsdata.io/api/1/"
         self.latest_endpoint = f"{self.base_api_url}latest"
         self.crypto_endpoint = f"{self.base_api_url}crypto"
+        self.archive_endpoint = f"{self.base_api_url}archive"
 
         self.auth = NewsDataAuth(api_key)
         self.request_method = requests
@@ -26,6 +27,21 @@ class NewsDataClient:
 
     def crypto(self):
         response = self.request_method.get(self.crypto_endpoint, auth=self.auth)
+
+        if response.status_code != requests.codes.ok:
+            if response.headers.get("content-type") == "application/json":
+                raise NewsDataException(response.json())
+            else:
+                raise NewsDataException(str(response.content))
+
+        return response.json()
+
+    def archive(self, category: str = "top"):
+        payload = {}
+        payload["category"] = category
+        response = self.request_method.get(
+            self.archive_endpoint, auth=self.auth, params=payload
+        )
 
         if response.status_code != requests.codes.ok:
             if response.headers.get("content-type") == "application/json":
