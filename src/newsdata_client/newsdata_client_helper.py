@@ -80,3 +80,11 @@ def add_archive_params(payload: dict, **kwargs):
 
     if len(payload) == 0:
         raise NewsDataException("atleast one parameter is required in archive endpoint")
+
+
+def add_sources_params(payload: dict, **kwargs):
+    add_language(payload, kwargs.get("language"))
+    add_country(payload, kwargs.get("country"))
+    add_category(payload, kwargs.get("category"))
+    add_domain_url(payload, kwargs.get("domainurl"))
+    add_priority_domain(payload, kwargs.get("prioritydomain"))

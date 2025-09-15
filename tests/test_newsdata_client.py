@@ -99,6 +99,27 @@ class TestNewsDataClient(unittest.TestCase):
         except Exception as e:
             self.fail(e)
 
+    def test_sources_with_params_country(self):
+        client = get_newsdata_client()
+        try:
+            response = client.sources(country=["ua"])
+        except Exception as e:
+            self.fail(e)
+
+    def test_sources_with_params_category(self):
+        client = get_newsdata_client()
+        try:
+            response = client.sources(category=["politics"])
+        except Exception as e:
+            self.fail(e)
+
+    def test_sources_with_params_language(self):
+        client = get_newsdata_client()
+        try:
+            response = client.sources(language=["nl"])
+        except Exception as e:
+            self.fail(e)
+
 
 def get_newsdata_client() -> NewsDataClient:
     c = NewsDataClient(api_key=os.environ.get("API_KEY"))

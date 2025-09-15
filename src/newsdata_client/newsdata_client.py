@@ -6,6 +6,7 @@ from newsdata_client.newsdata_client_helper import (
     add_latest_params,
     add_crypto_params,
     add_archive_params,
+    add_sources_params,
 )
 
 
@@ -68,7 +69,10 @@ class NewsDataClient:
 
         return response.json()
 
-    def sources(self):
+    def sources(self, **kwargs):
+        payload = dict()
+        add_sources_params(payload, **kwargs)
+
         response = self.request_method.get(self.sources_endpoint, auth=self.auth)
 
         if response.status_code != requests.codes.ok:
