@@ -2,7 +2,11 @@ import requests
 
 from newsdata_client.newsdata_auth import NewsDataAuth
 from newsdata_client.newsdata_exception import NewsDataException
-from newsdata_client.newsdata_client_helper import add_latest_params, add_crypto_params
+from newsdata_client.newsdata_client_helper import (
+    add_latest_params,
+    add_crypto_params,
+    add_archive_params,
+)
 
 
 class NewsDataClient:
@@ -48,9 +52,10 @@ class NewsDataClient:
 
         return response.json()
 
-    def archive(self, category: str = "top"):
-        payload = {}
-        payload["category"] = category
+    def archive(self, **kwargs):
+        payload = dict()
+        add_archive_params(payload, **kwargs)
+
         response = self.request_method.get(
             self.archive_endpoint, auth=self.auth, params=payload
         )

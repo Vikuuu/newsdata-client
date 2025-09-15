@@ -67,8 +67,28 @@ class TestNewsDataClient(unittest.TestCase):
 
     def test_archive(self):
         client = get_newsdata_client()
+        self.assertRaises(NewsDataException, client.archive)
+
+    def test_archive_with_param_category(self):
+        client = get_newsdata_client()
         try:
-            response = client.archive()
+            response = client.archive(category=["technology", "science"])
+        except Exception as e:
+            self.fail(e)
+
+    def test_archive_with_param_from_to_date(self):
+        client = get_newsdata_client()
+        try:
+            response = client.archive(
+                from_date="2025-09-01", to_date="2025-09-14", category=["technology"]
+            )
+        except Exception as e:
+            self.fail(e)
+
+    def test_archive_with_param_from_date(self):
+        client = get_newsdata_client()
+        try:
+            response = client.archive(from_date="2025-08-25", category=["science"])
         except Exception as e:
             self.fail(e)
 
