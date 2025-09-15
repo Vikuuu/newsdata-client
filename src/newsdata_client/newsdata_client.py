@@ -1,5 +1,6 @@
 import requests
 
+from requests import Session
 from newsdata_client.newsdata_auth import NewsDataAuth
 from newsdata_client.newsdata_exception import NewsDataException
 from newsdata_client.newsdata_client_helper import (
@@ -11,7 +12,7 @@ from newsdata_client.newsdata_client_helper import (
 
 
 class NewsDataClient:
-    def __init__(self, api_key):
+    def __init__(self, api_key: str, session: Session = None):
         self.base_api_url = "https://newsdata.io/api/1/"
         self.latest_endpoint = f"{self.base_api_url}latest"
         self.crypto_endpoint = f"{self.base_api_url}crypto"
@@ -19,7 +20,10 @@ class NewsDataClient:
         self.sources_endpoint = f"{self.base_api_url}sources"
 
         self.auth = NewsDataAuth(api_key)
-        self.request_method = requests
+        if session is None:
+            self.request_method = requests
+        else:
+            self.request_method = session
 
     def latest(self, **kwargs):
         payload = dict()
