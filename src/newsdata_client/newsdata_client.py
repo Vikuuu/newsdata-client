@@ -2,7 +2,7 @@ import requests
 
 from newsdata_client.newsdata_auth import NewsDataAuth
 from newsdata_client.newsdata_exception import NewsDataException
-from newsdata_client.newsdata_client_helper import add_latest_params
+from newsdata_client.newsdata_client_helper import add_latest_params, add_crypto_params
 
 
 class NewsDataClient:
@@ -32,8 +32,13 @@ class NewsDataClient:
 
         return response.json()
 
-    def crypto(self):
-        response = self.request_method.get(self.crypto_endpoint, auth=self.auth)
+    def crypto(self, **kwargs):
+        payload = dict()
+        add_crypto_params(payload, **kwargs)
+
+        response = self.request_method.get(
+            self.crypto_endpoint, auth=self.auth, params=payload
+        )
 
         if response.status_code != requests.codes.ok:
             if response.headers.get("content-type") == "application/json":

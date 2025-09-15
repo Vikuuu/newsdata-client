@@ -70,7 +70,7 @@ def add_language(p: dict, l: list[str] = None):
         return
     if len(l) > 5:
         raise NewsDataException("cannot exceed more than 5 languages")
-    p["lanugage"] = ",".join(l)
+    p["language"] = ",".join(l)
 
 
 def add_tag(p: dict, t: list[str] = None):
@@ -183,3 +183,23 @@ def add_page(p: dict, page: str = None):
     if page is None:
         return
     p["page"] = page
+
+
+def add_from_date(p: dict, from_date: str = None):
+    if from_date is None:
+        return
+    p["from_date"] = from_date
+
+
+def add_to_date(p: dict, to_date: str = None):
+    if to_date is None:
+        return
+    p["to_date"] = to_date
+
+
+def add_coin(p: dict, coin: list[str] = None):
+    if coin is None:
+        return
+    if len(coin) > 5:
+        raise NewsDataException("coins should be less than 5")
+    p["coin"] = ",".join(coin)

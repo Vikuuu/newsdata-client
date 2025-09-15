@@ -44,6 +44,27 @@ class TestNewsDataClient(unittest.TestCase):
         except Exception as e:
             self.fail(e)
 
+    def test_crypto_with_param_coin(self):
+        client = get_newsdata_client()
+        try:
+            response = client.crypto(coin=["btc", "bnb", "eth"])
+        except Exception as e:
+            self.fail(e)
+
+    def test_crypto_with_param_lang(self):
+        client = get_newsdata_client()
+        try:
+            response = client.crypto(language=["it", "en"])
+        except Exception as e:
+            self.fail(e)
+
+    def test_crypto_with_param_domain_url(self):
+        client = get_newsdata_client()
+        try:
+            response = client.crypto(domainur=["coindesk.com"])
+        except Exception as e:
+            self.fail(e)
+
     def test_archive(self):
         client = get_newsdata_client()
         try:
