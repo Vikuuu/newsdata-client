@@ -1,0 +1,28 @@
+from newsdata_client.utils import *
+
+
+def add_latest_params(payload: dict, **kwargs):
+    add_id(payload, kwargs.get("id"))
+    add_q(payload, kwargs.get("q"))
+    add_q_in_title(payload, kwargs.get("qInTitle"))
+    add_q_in_meta(payload, kwargs.get("qInMeta"))
+    add_timeframe(payload, kwargs.get("timeframe"))
+    add_country(payload, kwargs.get("country"))
+    add_category(payload, kwargs.get("category"))
+    add_exclude_category(payload, kwargs.get("excludecategory"))
+    add_language(payload, kwargs.get("language"))
+    add_tag(payload, kwargs.get("tag"))
+    add_sentiment(payload, kwargs.get("sentiment"))
+    add_region(payload, kwargs.get("region"))
+    add_domain(payload, kwargs.get("domain"))
+    add_domain_url(payload, kwargs.get("domainurl"))
+    add_exclude_domain(payload, kwargs.get("excludedomain"))
+    add_exclude_field(payload, kwargs.get("excludefield"))
+    add_priority_domain(payload, kwargs.get("prioritydomain"))
+    add_timezone(payload, kwargs.get("timezone"))
+    add_full_content(payload, kwargs.get("full_content"))
+    add_image(payload, kwargs.get("image"))
+    add_video(payload, kwargs.get("video"))
+    add_remove_duplicate(payload, kwargs.get("removeduplicate"))
+    add_size(payload, kwargs.get("size"))
+    add_page(payload, kwargs.get("page"))

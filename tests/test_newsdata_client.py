@@ -24,6 +24,19 @@ class TestNewsDataClient(unittest.TestCase):
 
         self.assertRaises(NewsDataException, client.latest)
 
+    def test_latest_with_q(self):
+        client = get_newsdata_client()
+
+        try:
+            response = client.latest(q="social")
+        except Exception as e:
+            self.fail(e)
+
+        try:
+            response = client.latest(q="social pizza")
+        except Exception as e:
+            self.fail(e)
+
     def test_crpyto(self):
         client = get_newsdata_client()
         try:
